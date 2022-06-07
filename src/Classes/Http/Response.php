@@ -30,7 +30,7 @@ class Response
 	{
 		http_response_code($this->httpCode);
 
-		header("Content-Type: {$this->contentType};");
+		header("Content-Type: {$this->contentType}");
 	}
 
 	private function sendResponse(mixed $content)

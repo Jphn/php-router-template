@@ -7,43 +7,33 @@ class Router
 	private string $prefix = '';
 	private array $routes;
 
-	public function get(string $path, callable $callback): Router
+	public function get(string $path, callable $callback, array $middleware = []): Router
 	{
 		$this->addRoute('GET', $path, $callback);
 		return $this;
 	}
 
-	public function post(string $path, callable $callback): Router
+	public function post(string $path, callable $callback, ?array $middleware = []): Router
 	{
 		$this->addRoute('POST', $path, $callback);
 		return $this;
 	}
 
-	public function put(string $path, callable $callback): Router
+	public function put(string $path, callable $callback, ?array $middleware = []): Router
 	{
 		$this->addRoute('PUT', $path, $callback);
 		return $this;
 	}
 
-	public function delete(string $path, callable $callback): Router
+	public function delete(string $path, callable $callback, ?array $middleware = []): Router
 	{
 		$this->addRoute('DELETE', $path, $callback);
 		return $this;
 	}
 
-	private function addRoute(string $method, string $path, callable $callback): void
-	{
-		$this->routes[$method][$this->prefix . $path] = $callback;
-	}
-
 	public function setPrefix(string $prefix): void
 	{
 		$this->prefix = $prefix;
-	}
-
-	public function setContentType(string $contentType): void
-	{
-		$this->contentType = $contentType;
 	}
 
 	public function run(): void
@@ -58,9 +48,10 @@ class Router
 				$callback(new Request(), new Response());
 			}
 		}
+	}
 
-		// var_dump($method);
-		// var_dump($uri);
-		// var_dump($this->routes);
+	private function addRoute(string $method, string $path, callable $callback): void
+	{
+		$this->routes[$method][$this->prefix . $path] = $callback;
 	}
 }
