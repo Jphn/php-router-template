@@ -1,0 +1,17 @@
+{
+    "name": "joaop/router-test",
+    "description": "This is just a simple attempt to create an OOP router.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "João Pedro Holanda Neves",
+            "email": "joaopedroholandaneves@gmail.com"
+        }
+    ],
+    "require": {}
+}
