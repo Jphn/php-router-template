@@ -1,5 +1,4 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-
-include __DIR__ . '/../src/routes/index.php';
+include __DIR__ . '/../vendor/autoload.php';
+include __DIR__ . '/../configs/routes/index.php';
