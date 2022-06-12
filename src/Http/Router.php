@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Http;
 
@@ -31,7 +32,7 @@ class Router
 		$uri = $this->formatPath($_SERVER['REQUEST_URI']);
 		$method = $_SERVER['REQUEST_METHOD'];
 
-		extract($this->routesList[$method][$uri] ?? ['controllerName' => ErrorController::class, 'actionName' => 'notFound']);
+		extract($this->routesList[$method][$uri] ?? ['controllerName' => ErrorController::class , 'actionName' => 'notFound']);
 
 		call_user_func(array($controllerName, $actionName), new Request(), new Response());
 	}
@@ -51,6 +52,9 @@ class Router
 	{
 		$path = explode('?', $path)[0];
 		$path = (substr($path, -1) == '/') && strlen($path) > 1 ? $path = rtrim($path, '/') : $path;
+
+		$path = $path == '' ? '/' : $path;
+
 		return $path;
 	}
 }

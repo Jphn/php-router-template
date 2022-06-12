@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Http;
 
@@ -26,6 +27,7 @@ class Request
 	}
 
 	public function __get($name) // Below 8.1
+
 	{
 		return $this->params[$name] ?? null;
 	}

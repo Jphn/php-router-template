@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Controller;
 
@@ -24,5 +25,10 @@ class IndexController
 		$get = $req->queryParams;
 
 		$res->status(200)->json(['msg' => 'this is the crazy pink lagartixa', 'animal' => $get['name']]);
+	}
+
+	public static function getObjectOfNumbers(Request $req, Response $res): void
+	{
+		$res->status(200)->json([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 	}
 }
