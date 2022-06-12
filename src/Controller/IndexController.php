@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Http\Request;
+use App\Http\Response;
+
 class IndexController
 {
-	public static function getIndex()
+	public static function getIndex(Request $req, Response $res): void
 	{
-		header('Content-Type: application/json');
-
-		echo json_encode(['msg' => 'this time from crazy controller']);
+		$res->status(200)->json(['msg' => 'this time from crazy controller']);
 	}
 
-	public static function getPinkLagartixa()
+	public static function getPinkLagartixa(Request $req, Response $res): void
 	{
-		header('Content-Type: application/json');
+		if (!$req->isGetParamsValid(['name'])) {
+			ErrorController::invalidArgs($req, $res);
+			return;
+		}
 
-		echo json_encode(['msg' => 'this is the crazy pink lagartixa']);
+		$get = $req->queryParams;
+
+		$res->status(200)->json(['msg' => 'this is the crazy pink lagartixa', 'animal' => $get['name']]);
 	}
 }

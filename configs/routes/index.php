@@ -10,6 +10,10 @@ $server->setPrefix('/lagartixa')
 		'controllerName' => IndexController::class,
 		'actionName' => 'getPinkLagartixa',
 		'middlewareList' => ['redirect']
+	])
+	->get('', [
+		'controllerName' => IndexController::class,
+		'actionName' => 'getIndex'
 	]);
 
 $server->run();

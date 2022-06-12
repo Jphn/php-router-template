@@ -5,21 +5,12 @@ declare(strict_types=1);
 namespace App\Http;
 
 use App\Controller\ErrorController;
-use App\Controller\IndexController;
 
 class Router
 {
 	private string $prefix = '';
 	private string $path;
-	private array $routesList = [
-		'GET' => [
-			'/lagartixa' => [
-				'middlewareList' => [],
-				'controllerName' => IndexController::class,
-				'actionName' => 'getIndex'
-			]
-		]
-	];
+	private array $routesList = [];
 
 	public function setPrefix(string $path): Router
 	{
@@ -42,18 +33,18 @@ class Router
 
 		extract($this->routesList[$method][$uri] ?? ['controllerName' => ErrorController::class, 'actionName' => 'notFound']);
 
-		call_user_func(array($controllerName, $actionName));
+		call_user_func(array($controllerName, $actionName), new Request(), new Response());
 	}
 
 	/* Private Methods */
 
 	private function addRoute(string $method, string $path, array $routeParams): void
 	{
-		$path = $this->formatPath($path);
+		$path = $this->formatPath($this->prefix . $path);
 
 		$routeParams['middlewareList'] = $routeParams['middlewareList'] ?? [];
 
-		$this->routesList[$method][$this->prefix . $path] = $routeParams;
+		$this->routesList[$method][$path] = $routeParams;
 	}
 
 	private function formatPath(string $path): string
