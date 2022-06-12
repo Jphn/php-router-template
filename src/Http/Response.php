@@ -16,14 +16,14 @@ class Response
 		return $this;
 	}
 
-	public function json(mixed $json): void
+	public function json($json): void // Mixed type is only available on ^8.0
 	{
 		$this->headers['Content-Type'] = 'application/json';
 
 		$this->sendResponse(json_encode($json));
 	}
 
-	public function send(mixed $data): void
+	public function send($data): void // Mixed type is only available on ^8.0
 	{
 		$this->headers['Content-Type'] = 'text/html';
 
@@ -32,7 +32,7 @@ class Response
 
 	/* Private Methods */
 
-	private function sendResponse(mixed $data): void
+	private function sendResponse($data): void // Mixed type is only available on ^8.0
 	{
 		$this->sendHeaders();
 

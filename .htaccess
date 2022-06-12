@@ -1,0 +1,28 @@
+### 000WEBHOST
+
+php_value display_errors 1;
+
+# Turn on URL rewriting
+RewriteEngine On
+
+# Installation directory
+RewriteBase /
+# If fuel is not a level up
+# RewriteBase /public
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+### INFINITYFREE HOST
+
+# Direciona o index para a pasta public
+DirectoryIndex ./public/index.php
+
+# Liga o Rewrite
+RewriteEngine On
+
+# Regra de Rewrite tudo para index
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ ./public/index.php [QSA,NC]
