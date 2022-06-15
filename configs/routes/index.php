@@ -1,24 +1,31 @@
 <?php
 
-use App\Controller\IndexController;
+use App\Controller\SampleController;
 use App\Http\Router;
 
 $server = new Router();
 
-$server->get('/', [
-	'controllerName' => IndexController::class ,
-	'actionName' => 'getObjectOfNumbers'
+$server->get('/get', [
+	'controllerName' => SampleController::class ,
+	'actionName' => 'getSample'
+])
+	->post('/post', [
+	'controllerName' => SampleController::class ,
+	'actionName' => 'postSample'
+])
+	->put('/put', [
+	'controllerName' => SampleController::class ,
+	'actionName' => 'putSample'
+])
+	->delete('/delete', [
+	'controllerName' => SampleController::class ,
+	'actionName' => 'deleteSample'
 ]);
 
-$server->setPrefix('/lagartixa')
-	->get('/pink', [
-	'controllerName' => IndexController::class ,
+$server->setPrefix('/prefix')
+	->get('/sample', [
+	'controllerName' => SampleController::class ,
 	'actionName' => 'getPinkLagartixa',
-	'middlewareList' => ['redirect']
-])
-	->get('', [
-	'controllerName' => IndexController::class ,
-	'actionName' => 'getIndex'
 ]);
 
 

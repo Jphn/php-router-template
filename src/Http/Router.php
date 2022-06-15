@@ -27,6 +27,27 @@ class Router
 		return $this;
 	}
 
+	public function post(string $path, array $routeParams): Router
+	{
+		$this->addRoute('POST', $path, $routeParams);
+
+		return $this;
+	}
+
+	public function put(string $path, array $routeParams): Router
+	{
+		$this->addRoute('PUT', $path, $routeParams);
+
+		return $this;
+	}
+
+	public function delete(string $path, array $routeParams): Router
+	{
+		$this->addRoute('DELETE', $path, $routeParams);
+
+		return $this;
+	}
+
 	public function run(): void
 	{
 		$uri = $this->formatPath($_SERVER['REQUEST_URI']);

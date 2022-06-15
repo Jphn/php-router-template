@@ -22,6 +22,7 @@ class Request
 		$this->params = [ // Below 8.1
 			'queryParams' => $_GET ?? [],
 			'postVars' => $_POST ?? [],
+			'body' => json_decode(file_get_contents('php://input'), true) ?? [],
 			'headers' => getallheaders()
 		];
 	}
