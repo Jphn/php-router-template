@@ -10,8 +10,8 @@ use App\Controller\ErrorController;
 class Router
 {
 	private string $prefix = '';
-	private string $path;
 	private array $routesList = [];
+	private static array $routesPaths = [];
 
 	public function setPrefix(string $path): Router
 	{
@@ -20,32 +20,24 @@ class Router
 		return $this;
 	}
 
-	public function get(string $path, array $routeParams): Router
+	public function get(string $path, array $routeParams, string $routeName = null): Router
 	{
-		$this->addRoute('GET', $path, $routeParams);
-
-		return $this;
+		return $this->addRoute('GET', $path, $routeParams, $routeName);
 	}
 
-	public function post(string $path, array $routeParams): Router
+	public function post(string $path, array $routeParams, string $routeName = null): Router
 	{
-		$this->addRoute('POST', $path, $routeParams);
-
-		return $this;
+		return $this->addRoute('POST', $path, $routeParams, $routeName);
 	}
 
-	public function put(string $path, array $routeParams): Router
+	public function put(string $path, array $routeParams, string $routeName = null): Router
 	{
-		$this->addRoute('PUT', $path, $routeParams);
-
-		return $this;
+		return $this->addRoute('PUT', $path, $routeParams, $routeName);
 	}
 
-	public function delete(string $path, array $routeParams): Router
+	public function delete(string $path, array $routeParams, string $routeName = null): Router
 	{
-		$this->addRoute('DELETE', $path, $routeParams);
-
-		return $this;
+		return $this->addRoute('DELETE', $path, $routeParams, $routeName);
 	}
 
 	public function run(): void
@@ -58,13 +50,30 @@ class Router
 		call_user_func($controller, new Request(), new Response());
 	}
 
+	/* SECTION - PUBLIC STATIC METHODS */
+
+	public static function redirect(string $routeName): void
+	{
+		$location = self::$routesPaths[$routeName] ?? '/';
+
+		header("Location: {$location}");
+		exit;
+	}
+
+	/* !SECTION - PUBLIC STATIC METHODS */
+
 	/* Private Methods */
 
-	private function addRoute(string $method, string $path, array $routeParams): void
+	private function addRoute(string $method, string $path, array $routeParams, string $routeName = null): Router
 	{
 		$path = $this->formatPath($this->prefix . $path);
 
+		if (isset($routeName))
+			self::$routesPaths[$routeName] = $path;
+
 		$this->routesList[$method][$path] = $routeParams;
+
+		return $this;
 	}
 
 	private function formatPath(string $path): string

@@ -29,4 +29,9 @@ class SampleController
 	{
 		$res->status(204)->json([]);
 	}
+
+	public static function redirectSample(Request $req, Response $res)
+	{
+		$res->redirect('getSample');
+	}
 }

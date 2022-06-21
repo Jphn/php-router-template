@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Http;
 
@@ -16,7 +17,13 @@ class Response
 		return $this;
 	}
 
+	public function redirect(string $routeName): void
+	{
+		Router::redirect($routeName);
+	}
+
 	public function json($json): void // Mixed type is only available on ^8.0
+
 	{
 		$this->headers['Content-Type'] = 'application/json';
 
@@ -24,6 +31,7 @@ class Response
 	}
 
 	public function send($data): void // Mixed type is only available on ^8.0
+
 	{
 		$this->headers['Content-Type'] = 'text/html';
 
@@ -33,6 +41,7 @@ class Response
 	/* Private Methods */
 
 	private function sendResponse($data): void // Mixed type is only available on ^8.0
+
 	{
 		$this->sendHeaders();
 
