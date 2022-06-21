@@ -6,26 +6,26 @@ use App\Http\Router;
 $server = new Router();
 
 $server->get('/get', [
-	'controllerName' => SampleController::class ,
-	'actionName' => 'getSample'
+	SampleController::class ,
+	'getSample'
 ])
 	->post('/post', [
-	'controllerName' => SampleController::class ,
-	'actionName' => 'postSample'
+	SampleController::class ,
+	'postSample'
 ])
 	->put('/put', [
-	'controllerName' => SampleController::class ,
-	'actionName' => 'putSample'
+	SampleController::class ,
+	'putSample'
 ])
 	->delete('/delete', [
-	'controllerName' => SampleController::class ,
-	'actionName' => 'deleteSample'
+	SampleController::class ,
+	'deleteSample'
 ]);
 
 $server->setPrefix('/prefix')
 	->get('/sample', [
-	'controllerName' => SampleController::class ,
-	'actionName' => 'getPinkLagartixa',
+	SampleController::class ,
+	'getPinkLagartixa',
 ]);
 
 

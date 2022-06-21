@@ -53,9 +53,9 @@ class Router
 		$uri = $this->formatPath($_SERVER['REQUEST_URI']);
 		$method = $_SERVER['REQUEST_METHOD'];
 
-		extract($this->routesList[$method][$uri] ?? ['controllerName' => ErrorController::class , 'actionName' => 'notFound']);
+		$controller = $this->routesList[$method][$uri] ?? [ErrorController::class , 'notFound'];
 
-		call_user_func(array($controllerName, $actionName), new Request(), new Response());
+		call_user_func($controller, new Request(), new Response());
 	}
 
 	/* Private Methods */
@@ -63,8 +63,6 @@ class Router
 	private function addRoute(string $method, string $path, array $routeParams): void
 	{
 		$path = $this->formatPath($this->prefix . $path);
-
-		$routeParams['middlewareList'] = $routeParams['middlewareList'] ?? [];
 
 		$this->routesList[$method][$path] = $routeParams;
 	}
